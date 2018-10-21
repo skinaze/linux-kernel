@@ -282,7 +282,7 @@
 		cooling-min-state = <0>;
 		cooling-max-state = <3>;
 		#cooling-cells = <2>;
-		cooling-levels = <0 80 170 230>;
+		cooling-levels = <100 150 200 255>;
 	}; 
 
 	rk_key: rockchip-key {
@@ -651,21 +651,19 @@
 	temperature = <100000>;
 };
 
+&trips {
+	fan_pt_0: trip-point-2 {
+		temperature = <50000>; 
+		hysteresis = <2000>; 
+		type = "active";
+	};
+};
+
 &cooling_maps {
 	map3 {
-		trip = <&threshold>;
-		cooling-device = <&fan0 0 1>;
-		contribution = <4096>;
-	};
-	map4 {
-		trip = <&target>;
-		cooling-device = <&fan0 1 2>;
-		contribution = <4096>;
-	};
-	map5 {
-		trip = <&soc_crit>;
-		cooling-device = <&fan0 2 3>;
-		contribution = <4096>;
+		trip = <&fan_pt_0>;
+		cooling-device = <&fan0 1 3>;
+		contribution = <8192>;
 	};
 };
 
